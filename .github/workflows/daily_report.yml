@@ -23,7 +23,8 @@ jobs:
 
     - name: 스크립트 실행
       env:
-        OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        OPENROUTER_API_KEY_V1: ${{ secrets.OPENROUTER_API_KEY_V1 }}
+        OPENROUTER_API_KEY_V2: ${{ secrets.OPENROUTER_API_KEY_V2 }}
         DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
       run: python monitor.py
 
