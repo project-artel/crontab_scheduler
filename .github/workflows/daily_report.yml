@@ -1,0 +1,29 @@
+name: OpenRouter Daily Budget Notification
+
+on:
+  schedule:
+    # UTC 기준 09:00 = 한국 표준시(KST) 18:00
+    - cron: '0 9 * * *'
+  workflow_dispatch: # GitHub 웹페이지에서 수동으로 'Run workflow' 버튼을 누를 수 있게 함
+
+jobs:
+  run-monitor:
+    runs-on: ubuntu-latest
+    steps:
+    - name: 코드 체크아웃
+      uses: actions/checkout@v4
+
+    - name: 파이썬 설치
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.10'
+
+    - name: 라이브러리 설치
+      run: pip install requests
+
+    - name: 스크립트 실행
+      env:
+        OPENROUTER_API_KEY: ${{ secrets.OPENROUTER_API_KEY }}
+        DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
+      run: python monitor.py
+
